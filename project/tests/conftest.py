@@ -23,6 +23,7 @@ def test_app():
 
     # tear down
 
+
 @pytest.fixture(scope="module")
 def test_app_with_db():
     app = create_application()
