@@ -14,7 +14,7 @@ TORTOISE_ORM = {
             "models": ["app.models.tortoise", "aerich.models"],
             "default_connection": "default",
         }
-    }
+    },
 }
 
 
@@ -38,6 +38,7 @@ async def generate_schema() -> None:
     log.info("Generating db schema via Tortoise...")
     await Tortoise.generate_schemas()
     await Tortoise.close_connections()
+
 
 if __name__ == "__main__":
     run_async(generate_schema())
