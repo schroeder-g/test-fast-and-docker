@@ -1,4 +1,4 @@
-name: Continuous Integration and Delivery
+name: Root Action-- CI, Testing, Delivery
 
 on: [push]
 
