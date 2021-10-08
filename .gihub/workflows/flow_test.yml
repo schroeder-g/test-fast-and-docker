@@ -1,4 +1,0 @@
-name: Send me a Message when I push
-
-on:
-  [push]
