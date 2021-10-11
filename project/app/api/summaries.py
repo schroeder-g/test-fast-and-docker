@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException
 
 from app.api import crud
 from app.models.tortoise import SummarySchema
-from app.models.pydantic import ( # isort:skip
+from app.models.pydantic import (  # isort:skip
     SummaryPayloadSchema,
     SummaryResponseSchema,
     SummaryUpdatePayloadSchema,
