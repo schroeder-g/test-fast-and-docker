@@ -43,9 +43,21 @@ def test_get_summary(test_app_with_db):
 
 def test_read_summary_incorrect_id(test_app_with_db):
     response = test_app_with_db.get("/summaries/999")
-
     assert response.status_code == 404
     assert response.json()["detail"] == "Summary 999 not found"
+
+    response = test_app_with_db.get("/summaries/0/")
+    assert response.status_code == 422
+    assert response.json() == {
+        "detail": [
+            {
+                "loc": ["path", "id"],
+                "msg": "ensure this value is greater than 0",
+                "type": "value_error.number.not_gt",
+                "ctx": {"limit_value": 0},
+            }
+        ]
+    }
 
 
 def test_read_all_summaries(test_app_with_db):
@@ -67,7 +79,7 @@ def test_remove_summary(test_app_with_db):
     )
     summary_id = response.json()["id"]
 
-    response = test_app_with_db.delete(f"/summaries/{summary_id}/")
+    response = test_app_with_db.delete(rf"/summaries/{summary_id}/")
     assert response.status_code == 200
     assert response.json() == {"id": summary_id, "url": "https://faux.bore"}
 
