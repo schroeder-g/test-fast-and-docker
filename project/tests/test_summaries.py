@@ -79,7 +79,7 @@ def test_remove_summary(test_app_with_db):
     )
     summary_id = response.json()["id"]
 
-    response = test_app_with_db.delete(rf"/summaries/{summary_id}/")
+    response = test_app_with_db.delete(f"/summaries/{summary_id}/")
     assert response.status_code == 200
     assert response.json() == {"id": summary_id, "url": "https://faux.bore"}
 
