@@ -1,7 +1,7 @@
 from typing import List, Union
 
-from app.models.pydantic import (SummaryPayloadSchema,
-                                 SummaryUpdatePayloadSchema)
+from app.models.pydantic import SummaryPayloadSchema  # black:skip
+from app.models.pydantic import SummaryUpdatePayloadSchema  # black:skip
 from app.models.tortoise import TextSummary
 
 
