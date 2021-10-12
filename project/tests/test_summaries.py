@@ -98,8 +98,7 @@ def test_update_summary(test_app_with_db):
 
     response = test_app_with_db.put(
         f"/summaries/{summary_id}/",
-        data=json.dumps({"url": "https://fax.bear",
-                         "summary": "did the thing."})
+        data=json.dumps({"url": "https://fax.bear", "summary": "did the thing."}),
     )
     assert response.status_code == 200
 
@@ -112,8 +111,8 @@ def test_update_summary(test_app_with_db):
 
 def test_update_summary_incorrect_id(test_app_with_db):
     response = test_app_with_db.put(
-        "/summaries/999/", data=json.dumps({"url": "https://faux.bore",
-                                           "summary": "updating..."})
+        "/summaries/999/",
+        data=json.dumps({"url": "https://faux.bore", "summary": "updating..."}),
     )
     assert response.status_code == 404
     assert response.json()["detail"] == "Summary 999 not found"
@@ -125,9 +124,7 @@ def test_update_summary_invalid_json(test_app_with_db):
     )
     summary_id = response.json()["id"]
 
-    response = test_app_with_db.put(
-        f"/summaries/{summary_id}/", data=json.dumps({})
-    )
+    response = test_app_with_db.put(f"/summaries/{summary_id}/", data=json.dumps({}))
     assert response.status_code == 422
     assert response.json() == {
         "detail": [
@@ -140,7 +137,7 @@ def test_update_summary_invalid_json(test_app_with_db):
                 "loc": ["body", "summary"],
                 "msg": "field required",
                 "type": "value_error.missing",
-            }
+            },
         ]
     }
 
@@ -152,8 +149,7 @@ def test_update_summary_invalid_keys(test_app_with_db):
     summary_id = response.json()["id"]
 
     response = test_app_with_db.put(
-        f"/summaries/{summary_id}/",
-        data=json.dumps({"phew-rl": "Non-existent"})
+        f"/summaries/{summary_id}/", data=json.dumps({"phew-rl": "Non-existent"})
     )
     assert response.status_code == 422
     assert response.json() == {
@@ -167,6 +163,6 @@ def test_update_summary_invalid_keys(test_app_with_db):
                 "loc": ["body", "summary"],
                 "msg": "field required",
                 "type": "value_error.missing",
-            }
+            },
         ]
     }
