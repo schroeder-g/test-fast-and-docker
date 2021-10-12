@@ -24,6 +24,10 @@ def test_create_summary_invalid_json(test_app_with_db):
         ]
     }
 
+    response = test_app_with_db.post("/summaries/", data=json.dumps({"url": "invalid://url"}))
+    assert response.status_code == 422
+    assert response.json()["detail"][0]["msg"] == "URL scheme not permitted"
+
 
 def test_get_summary(test_app_with_db):
     response = test_app_with_db.post(
@@ -117,6 +121,22 @@ def test_update_summary_incorrect_id(test_app_with_db):
     assert response.status_code == 404
     assert response.json()["detail"] == "Summary 999 not found"
 
+    response = test_app_with_db.put(
+        "/summaries/0/",
+        data=json.dumps({"url": "https://fae.burr", "summary": "updated!"})
+    )
+    assert response.status_code == 422
+    assert response.json() == {
+        "detail": [
+            {
+                "loc": ["path", "id"],
+                "msg": "ensure this value is greater than 0",
+                "type": "value_error.number.not_gt",
+                "ctx": {"limit_value": 0},
+            }
+        ]
+    }
+
 
 def test_update_summary_invalid_json(test_app_with_db):
     response = test_app_with_db.post(
@@ -140,6 +160,13 @@ def test_update_summary_invalid_json(test_app_with_db):
             },
         ]
     }
+
+    response = test_app_with_db.put(
+        f"/summaries/{summary_id}/",
+        data=json.dumps({"url": "invalid://url", "summary": "updated!"})
+    )
+    assert response.status_code == 422
+    assert response.json()["detail"][0]["msg"] == "URL scheme not permitted"
 
 
 def test_update_summary_invalid_keys(test_app_with_db):
