@@ -19,7 +19,7 @@ def test_app():
     app.dependency_overrides[get_settings] = get_settings_override
     with TestClient(app) as test_client:
         # test
-      -/  yield test_client
+      yield test_client
 
     # tear down
 
