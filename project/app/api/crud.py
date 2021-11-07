@@ -3,12 +3,13 @@ from typing import List, Union
 from app.models.pydantic import SummaryPayloadSchema  # black:skip
 from app.models.pydantic import SummaryUpdatePayloadSchema  # black:skip
 from app.models.tortoise import TextSummary
+from app.summarizer import generate_summary
 
 
 async def post(payload: SummaryPayloadSchema) -> int:
     summary = TextSummary(
         url=payload.url,
-        summary="dummy",
+        summary="",
     )
     await summary.save()
     return summary.id
