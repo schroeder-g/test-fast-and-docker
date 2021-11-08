@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 # set env vars
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 11
+ENV PYTHONUNBUFFERED 1
 
 # install system dependencies
 RUN apt-get update \
