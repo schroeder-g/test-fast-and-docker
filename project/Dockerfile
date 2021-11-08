@@ -10,13 +10,14 @@ ENV PYTHONUNBUFFERED 11
 
 # install system dependencies
 RUN apt-get update \
-    && apt-get -y install netcat gcc postgresql\
+        && apt-get -y install netcat gcc postgresql\
     && apt-get clean
 
 # install python deps
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+COPY ./requirements-dev.txt .
+RUN pip install -r requirements-dev.txt
 
 # add app
 COPY . .

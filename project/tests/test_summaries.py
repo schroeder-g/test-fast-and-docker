@@ -164,7 +164,7 @@ def test_update_summary(test_app_with_db, monkeypatch):
 
 
 @pytest.mark.parametrize(
-    "summary_id, payload, status_code, detail",
+    "summary_id, " "payload, " "status_code, " "detail",
     [
         [
             999,
