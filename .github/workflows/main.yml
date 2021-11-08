@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v2.3.4
-      - name: Log in to Github Packages
+      - name: Log in to GitHub Packages
         run: echo ${GITHUB_TOKEN} | docker login -u ${GITHUB_ACTOR} --password-stdin docker.pkg.github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -24,6 +24,7 @@ jobs:
       - name: Build images
         run: |
           docker build \
+          --target builder
              --cache-from ${{ env.IMAGE }}-builder:latest \
              --tag ${{ env.IMAGE }}-builder:latest \
              --file ./project/Dockerfile.prod \
@@ -44,7 +45,7 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v2.3.4
-      - name: Log in to Github Packages
+      - name: Log in to GitHub Packages
         run: echo ${GITHUB_TOKEN} | docker login -u ${GITHUB_ACTOR} --password-stdin docker.pkg.github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
