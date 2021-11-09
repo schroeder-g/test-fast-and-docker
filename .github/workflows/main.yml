@@ -24,16 +24,16 @@ jobs:
       - name: Build images
         run: |
           docker build \
-          --target builder
-             --cache-from ${{ env.IMAGE }}-builder:latest \
-             --tag ${{ env.IMAGE }}-builder:latest \
-             --file ./project/Dockerfile.prod \
-             "./project"
+              --target builder
+              --cache-from ${{ env.IMAGE }}-builder:latest \
+               --tag ${{ env.IMAGE }}-builder:latest \
+               --file ./project/Dockerfile.prod \
+              "./project"
           docker build \
-             --cache-from ${{ env.IMAGE }}-final:latest \
-             --tag ${{ env.IMAGE }}-final:latest \
+               --cache-from ${{ env.IMAGE }}-final:latest \
+                y--tag ${{ env.IMAGE }}-final:latest \
              --file ./project/Dockerfile.prod \
-             "./project"
+              "./project"
       - name: Push images
         run: |
           docker push ${{ env.IMAGE }}-builder:latest
