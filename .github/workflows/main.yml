@@ -30,9 +30,9 @@ jobs:
                --file ./project/Dockerfile.prod \
               "./project"
           docker build \
-               --cache-from ${{ env.IMAGE }}-final:latest \
-                y--tag ${{ env.IMAGE }}-final:latest \
-             --file ./project/Dockerfile.prod \
+              --cache-from ${{ env.IMAGE }}-final:latest \
+              --tag ${{ env.IMAGE }}-final:latest \
+              --file ./project/Dockerfile.prod \
               "./project"
       - name: Push images
         run: |
